@@ -1,4 +1,6 @@
 class Recipe < ApplicationRecord
+  
+  belongs_to :cuisine
   belongs_to :recipe_type
   validates :title, presence: true
   validates :recipe_type, presence: true
