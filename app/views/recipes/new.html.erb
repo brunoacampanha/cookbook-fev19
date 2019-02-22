@@ -1,4 +1,5 @@
 
+
 <%= form_for @recipe do |f| %>
     <%= f.label :title, 'Título' %>
     <%= f.text_field :title %>
@@ -14,6 +15,8 @@
     <%= f.text_area :ingredients %>
     <%= f.label :cook_method, 'Como Preparar' %>
     <%= f.text_area :cook_method %>
+    <%= f.label :photo, 'Foto' %>
+    <%= f.file_field :photo %>
     <%= f.submit 'Enviar' %>
   <% end %>
   
