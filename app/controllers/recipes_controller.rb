@@ -54,11 +54,18 @@ class RecipesController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+
+    @recipes = Recipe.where("title = ? ", params[:busca])
+
+
+  end
+
 
   private
 
   def recipe_params
     params.require(:recipe).permit(:title, :recipe_type_id, :cuisine_id, :difficulty,
-                                   :cook_time, :ingredients, :cook_method, :photo)
+                                   :cook_time, :ingredients, :cook_method, :photo, :busca)
   end
 end

@@ -1,0 +1,9 @@
+
+<% if @recipes.any? %>
+  <% @recipes.each do |recipe| %>
+    <h1>Resultados da busca</h1>
+      <h1><%= link_to recipe.title, recipe %></h1>  
+  <% end %>
+<% else %>
+    <h1>Nenhuma receita encontrada</h1>  
+<% end %>

@@ -1,8 +1,18 @@
+
+<%= flash[:message] %>
+
 <h1>CookBook</h1>
 <p>Bem-vindo ao maior livro de receitas online</p>
+
+<%= form_tag(search_recipes_path, method: 'get') do %>
+  <%= label_tag(:busca, "Buscar") %>
+  <%= text_field_tag(:busca) %>
+  <%= submit_tag("Buscar") %>
+<% end %>
+
 <%= link_to 'Cadastrar tipo de receita', new_recipe_type_path %>
 <%= link_to 'Enviar uma receita', new_recipe_path %>
-<%= flash[:message] %>
+
 <% @recipes.each do |recipe| %>
   <h1><%= link_to recipe.title, recipe %></h1>
   <ul>
