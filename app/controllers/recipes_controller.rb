@@ -41,6 +41,17 @@ class RecipesController < ApplicationController
     else
       render 'edit'
     end 
+
+    
+  end
+
+  def destroy
+    
+    @recipe = Recipe.destroy(params[:id])
+
+    flash[:message] = "Item excluido com sucesso"
+    
+    redirect_to root_path
   end
 
 
