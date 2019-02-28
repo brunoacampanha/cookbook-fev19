@@ -1,6 +1,21 @@
 require 'rails_helper'
 
 feature 'User register recipe' do
+  
+  scenario 'cannot view new recipe link' do
+    # simula a ação do usuário
+    visit root_path
+    #expectativas
+    expect(page).not_to have_link('Enviar uma receita')
+  end
+
+  scenario 'cannot view new recipe url' do
+    #simula a ação do usuário
+    visit new_recipe_path
+    #expectativas
+    expect(current_path).to eq new_user_session_path
+  end
+  
   scenario 'successfully' do
     #cria os dados necessários, nesse caso não vamos criar dados no banco
     RecipeType.create(name: 'Sobremesa')
@@ -50,5 +65,6 @@ feature 'User register recipe' do
 
 
     expect(page).to have_content('Não foi possível salvar a receita')
+
   end
 end
