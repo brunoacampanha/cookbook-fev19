@@ -23,7 +23,6 @@ class RecipesController < ApplicationController
     else
       render 'new'
     end
-
   end
 
   def edit
@@ -40,32 +39,35 @@ class RecipesController < ApplicationController
     redirect_to @recipe
     else
       render 'edit'
-    end 
-
-    
+    end    
   end
 
   def destroy
-    
     @recipe = Recipe.destroy(params[:id])
-
     flash[:message] = "Item excluido com sucesso"
-    
     redirect_to root_path
   end
 
   def search
-
     @recipes = Recipe.where("title = ? ", params[:busca])
-
-
   end
 
+  def favorite
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(favorite: true)
+    redirect_to  @recipe
+  end
 
+  def unfavorite
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(favorite: false)
+    redirect_to @recipe
+  end
+  
   private
 
   def recipe_params
     params.require(:recipe).permit(:title, :recipe_type_id, :cuisine_id, :difficulty,
-                                   :cook_time, :ingredients, :cook_method, :photo, :busca)
+                                   :cook_time, :ingredients, :cook_method, :photo, :busca, :favorite)
   end
 end
