@@ -1,10 +1,13 @@
 class RecipesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
+
   def index
     @recipes = Recipe.all
   end
 
   def show
     @recipe = Recipe.find(params[:id])
+    @recipe.user = current_user
     @recipe_types = RecipeType.all
   end
 
@@ -16,6 +19,7 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user = current_user
     @recipe_types = RecipeType.all
     @cuisines = Cuisine.all
     if @recipe.save

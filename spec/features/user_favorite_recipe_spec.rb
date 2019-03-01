@@ -3,16 +3,21 @@ require 'rails_helper'
 #cria os dados necessários
 feature 'user favorite recipe' do
   scenario 'succesfully' do
+    user = User.create!(email: 'admin@email.com',
+    password: '123456')
+
     a = RecipeType.create(name: 'Sobremesa')
     b = Cuisine.create(name: 'Brasileira')
     c = Recipe.create(title: 'Bolo de cenoura', recipe_type: a,
                           cuisine: b, difficulty: 'Médio',
                           cook_time: 60,
+                          user: user,
                           ingredients: 'Farinha, açucar, cenoura',
                           cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                           favorite: false)
 
     #simula a ação do usuário
+    login_as(user, scope: :user)
     visit root_path
     click_on c.title
     click_on 'favorita'
@@ -27,16 +32,20 @@ feature 'user favorite recipe' do
   end
 
   scenario 'succesfully' do
+    user = User.create!(email: 'admin@email.com',
+    password: '123456')
     a = RecipeType.create(name: 'Sobremesa')
     b = Cuisine.create(name: 'Brasileira')
     c = Recipe.create(title: 'Bolo de cenoura', recipe_type: a,
                           cuisine: b, difficulty: 'Médio',
+                          user: user,
                           cook_time: 60,
                           ingredients: 'Farinha, açucar, cenoura',
                           cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                           favorite: true)
 
     #simula a ação do usuário
+    login_as(user, scope: :user)
     visit root_path
     click_on c.title
     click_on 'desfazer favorita'

@@ -18,11 +18,16 @@ feature 'User register recipe' do
   
   scenario 'successfully' do
     #cria os dados necessários, nesse caso não vamos criar dados no banco
+
+    user = User.create!(email: 'admin@email.com',
+    password: '123456')
+
     RecipeType.create(name: 'Sobremesa')
     RecipeType.create(name: 'Entrada')
     Cuisine.create(name: 'Arabe')
 
     # simula a ação do usuário
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Enviar uma receita'
 
@@ -49,10 +54,19 @@ feature 'User register recipe' do
     expect(page).to have_css('h3', text: 'Como Preparar')
     expect(page).to have_css('p', text:  'Misturar tudo e servir. Adicione limão a gosto.')
     expect(page).to have_css('img[src*="Tabule.jpg"]')
+    expect(page).to have_css('h3', text: "Receita criada por: #{user.email}")
   end
 
+
+
   scenario 'and must fill in all fields' do
+    #Criando dados necessários
+
+    user = User.create!(email: 'admin@email.com',
+    password: '123456')
+
     # simula a ação do usuário
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Enviar uma receita'
 

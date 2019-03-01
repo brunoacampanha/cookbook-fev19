@@ -1,19 +1,27 @@
 require 'rails_helper'
 
 feature 'User update recipe' do
+
   scenario 'successfully' do
+
+    #Criando os dados necessários
+    user = User.create!(email: 'admin@email.com',
+    password: '123456')
+
     recipe_type = RecipeType.create(name: 'Sobremesa')
     RecipeType.create(name: 'Entrada')
     cuisine = Cuisine.create(name: 'Brasileira')
     Cuisine.create(name: 'Arabe')
-    Recipe.create(title: 'Bolodecenoura', difficulty: 'Médio',
+    Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
+                  user: user,
                   recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
 
     # simula a ação do usuário
+    login_as(user, scope: :user)
     visit root_path
-    click_on 'Bolodecenoura'
+    click_on 'Bolo de cenoura'
     click_on 'Editar'
 
     fill_in 'Título', with: 'Bolo de cenoura'
@@ -37,14 +45,18 @@ feature 'User update recipe' do
   end
 
   scenario 'and must fill in all fields' do
+    user = User.create!(email: 'admin@email.com',
+    password: '123456')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
     Recipe.create(title: 'Bolodecenoura', difficulty: 'Médio',
+                  user: user,
                   recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
 
     # simula a ação do usuário
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Bolodecenoura'
     click_on 'Editar'

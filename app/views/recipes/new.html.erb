@@ -20,9 +20,12 @@
     <%= f.submit 'Enviar' %>
   <% end %>
   
-  <%if @recipe.errors %>
-  <% @recipe.errors.full_messages.each do |msg| %>
-  <%= msg %>
-  <%end%>
-  <%='Não foi possível salvar a receita'%>
-  <%end%>
+<%if @recipe.errors %>
+    <% @recipe.errors.full_messages.each do |msg| %>
+      <%= msg %>
+    <%end%>
+
+    <%='Não foi possível salvar a receita'%>
+
+<%end%>
+

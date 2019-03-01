@@ -18,4 +18,5 @@
   <%= image_tag 'star.png', class: 'star' %>
   <%= link_to 'desfazer favorita', unfavorite_recipe_path, method: :delete %>
 <% end %>
+<h3> Receita criada por: <%= @recipe.user.email %></h3>
 <%= link_to 'Voltar', root_path %> <%= link_to 'Excluir Receita', recipe_path(@recipe), method: :delete %>

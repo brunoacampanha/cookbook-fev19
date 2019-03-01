@@ -14,10 +14,11 @@
   <%= text_field_tag(:busca) %>
   <%= submit_tag("Buscar") %>
 <% end %>
-
 <%= link_to 'Cadastrar tipo de receita', new_recipe_type_path %>
-<%= link_to 'Enviar uma receita', new_recipe_path %>
 
+<% if  user_signed_in? %>
+  <%= link_to 'Enviar uma receita', new_recipe_path %>
+<% end %>
 <% @recipes.each do |recipe| %>
   <h1><%= link_to recipe.title, recipe %></h1>
   <ul>
