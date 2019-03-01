@@ -3,6 +3,7 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.all
+    @lists = current_user.lists
   end
 
   def show

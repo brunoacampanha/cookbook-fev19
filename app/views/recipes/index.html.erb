@@ -18,6 +18,11 @@
 
 <% if  user_signed_in? %>
   <%= link_to 'Enviar uma receita', new_recipe_path %>
+
+  <% @lists.each do |list| %>
+  <%= link_to list.name, list %>
+  <%end%>
+
 <% end %>
 <% @recipes.each do |recipe| %>
   <h1><%= link_to recipe.title, recipe %></h1>
